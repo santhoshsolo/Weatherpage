@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Welcome To The Weather App</h1>
+  <p>Here is your current location</p>
+
+
+  <div class="coordinates">
+    <input type="text" id="latitudeInput" placeholder="Latitude">
+    <input type="text" id="longitudeInput" placeholder="Longitude">
+  </div>
+  
+ 
+  <div>
+    <button id="fetch-location">Fetch My Location</button>
+  </div>
+
+  <div class="map-container">
+    <iframe width="600" height="450" frameborder="0" style="border:0"
+    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCUH6Jt2EUC3Q4aifTIt68Ho0nh_E12tjs&center=${lat},${lon}&zoom=14"
+  allowfullscreen
+></iframe>
+  </div>
+
+  <div class="weather-data">
+    <h2>Your Weather Data</h2>
+    <div id="location"></div>
+    <div id="wind-speed"></div>
+    <div id="humidity"></div>
+    <div id="timezone"></div>
+    <div id="pressure"></div>
+    <div id="wind-direction"></div>
+    <div id="uv-index"></div>
+    <div id="feels-like"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
