@@ -1,49 +1,54 @@
-let latitude, longitude;
+  let latitude, longitude;
 
-document.getElementById('fetch-location').addEventListener('click', function() {
-  getLocation();
-});
+  document.getElementById('fetch-location').addEventListener('click', function () {
+    getLocation();
+  });
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else {
-    alert("Geolocation is not supported by this browser.");
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }
-}
 
-function showPosition(position) {
-  latitude = position.coords.latitude;
-  longitude = position.coords.longitude;
-  window.location.href = `weatherPage.html?lat=${latitude}&lon=${longitude}`;
-}
+  function showPosition(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
 
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.");
-      break;
-    case error.TIMEOUT:
-      alert("The request to get user location timed out.");
-      break;
-    case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.");
-      break;
+    document.getElementById('latitudeInput').value = latitude;
+    document.getElementById('longitudeInput').value = longitude;
+
+    showMap(latitude, longitude);
+    fetchWeatherData(latitude, longitude);
   }
-}
 
-function showMap(lat, lon) {
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=AIzaSyCUH6Jt2EUC3Q4aifTIt68Ho0nh_E12tjs&center=${lat},${lon}&zoom=14`;
-  document.querySelector('.map-container iframe').src = mapUrl;
-}
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+  }
 
-function fetchWeatherData(lat, lon) {
-    const apiKey = 'AIzaSyCUH6Jt2EUC3Q4aifTIt68Ho0nh_E12tjs'
+  function showMap(lat, lon) {
+    const mapUrl = `https://www.google.com/maps/embed/v1/view?key=ca6a5a976bff8694771839ba11edb439&center=${lat},${lon}&zoom=14`;
+    document.getElementById('map-iframe').src = mapUrl;
+  }
+
+  function fetchWeatherData(lat, lon) {
+    const apiKey = 'ca6a5a976bff8694771839ba11edb439';  // Replace with your OpenWeather API key
     const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  
+
     fetch(apiUrl)
       .then(response => {
         if (!response.ok) {
@@ -65,19 +70,3 @@ function fetchWeatherData(lat, lon) {
         console.error('Error fetching weather data:', error);
       });
   }
-  
-  function getLocationAndFetchWeather() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        fetchWeatherData(lat, lon);
-      }, error => {
-        console.error('Error getting location:', error);
-      });
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
-  }
-  
-  getLocationAndFetchWeatherData();
