@@ -46,7 +46,7 @@
   }
 
   function fetchWeatherData(lat, lon) {
-    const apiKey = 'ca6a5a976bff8694771839ba11edb439';  // Replace with your OpenWeather API key
+    const apiKey = 'ca6a5a976bff8694771839ba11edb439';  
     const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
     fetch(apiUrl)
